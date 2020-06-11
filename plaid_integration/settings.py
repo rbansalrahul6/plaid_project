@@ -11,6 +11,10 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
+import environ
+
+env = environ.Env()
+environ.Env.read_env('.env')
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -37,7 +41,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'rest_framework'
+    'rest_framework',
+    'rest_framework.authtoken',
+    'djoser',
+    'plaid_integration.user',
+    'plaid_integration.accounts'
 ]
 
 MIDDLEWARE = [
@@ -55,7 +63,7 @@ ROOT_URLCONF = 'plaid_integration.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -119,3 +127,29 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),
+]
+
+REST_FRAMEWORK = {
+    'DEFAULT_RENDERER_CLASSES': [
+        'djangorestframework_camel_case.render.CamelCaseJSONRenderer',
+        'djangorestframework_camel_case.render.CamelCaseBrowsableAPIRenderer',
+    ],
+    'DEFAULT_PARSER_CLASSES': [
+        'djangorestframework_camel_case.parser.CamelCaseFormParser',
+        'djangorestframework_camel_case.parser.CamelCaseMultiPartParser',
+        'djangorestframework_camel_case.parser.CamelCaseJSONParser',
+    ],
+    "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.IsAuthenticated",),
+    "DEFAULT_AUTHENTICATION_CLASSES": (
+        "rest_framework.authentication.TokenAuthentication",
+    ),
+}
+
+PLAID_CLIENT_ID = env('PLAID_CLIENT_ID')
+PLAID_SECRET = env('PLAID_SECRET')
+PLAID_PUBLIC_KEY = env('PLAID_PUBLIC_KEY')
+PLAID_PRODUCTS = env('PLAID_PRODUCTS')
+PLAID_COUNTRY_CODES = env('PLAID_COUNTRY_CODES')
+PLAID_ENVIRONMENT = env('PLAID_ENVIRONMENT')

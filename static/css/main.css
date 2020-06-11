@@ -1,0 +1,67 @@
+body {
+    background: #f0f8ff;
+    font-family: verdana, sans-serif;
+    font-size:1vw
+  
+  }
+  
+  .left {
+    padding:20px;
+    float:left;
+    width:20%;
+  }
+  
+  .main {
+    padding:20px;
+    float:left;
+    width:60%;
+  }
+  
+  .right {
+    padding:20px;
+    float:left;
+    width:20%;
+  }
+  
+  @media only screen and (max-width:620px) {
+    .left, .main, .right {
+      width:100%;
+      font-size:3vw
+    }
+  }
+  
+  .transactions-item {
+    padding: 4px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    width: 100%;
+    background: #66a2d4;
+  }
+  
+  .transactions-item-negative {
+    color: #DD1111;
+  }
+  
+  .account-item {
+    padding: 4px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    width: 100%;
+    background: #66a2d4;
+  }
+  
+  .account-item:hover {
+    background: #4682b4;
+  }
+  
+  #link-button {
+    background-color: #4CAF50;
+    border: none;
+    color: #f0f8ff;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+  }
+  

@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block content %}
+<script src="{% static 'js/login.js'%}"></script>
+<link rel="stylesheet" href="{% static 'css/login.css' %}">
+<div id="login-box">
+    <div id="login-label">Log in</div>
+    <form id="login-form" action="javascript:void(0);">
+        <input type="text" placeholder="USERNAME" name="username">
+        <input type="password" placeholder="PASSWORD" name="password">
+        <button onclick="submitForm()" form="login-form" onsubmit="submitForm()">LOGIN</button>
+    </form>
+</div>
+{% endblock content %}

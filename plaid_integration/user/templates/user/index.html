@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <button id="link-button">Link Account</button>
+<script src="https://cdn.plaid.com/link/v2/stable/link-initialize.js"></script>
+<script type="text/javascript">
+(function($) {
+  var handler = Plaid.create({
+    clientName: 'Plain Book',
+    countryCodes: ['US'],
+    env: 'sandbox',
+    key: "{{ pk }}",
+    product: ['transactions', 'identity'],
+    language: 'en',
+    userLegalName: 'Anna B',
+    userEmailAddress: 'a@b.com',
+    onSuccess: function(public_token, metadata) {
+      $.ajaxSetup({beforeSend: function(xhr){
+        xhr.setRequestHeader('Authorization', 'Token ' + localStorage.getItem('authToken'))
+      }});
+      $.post(
+        "{% url 'accounts:plaid-link-list' %}",
+        {public_token: public_token},
+          () => {
+            document.location = "{% url 'accounts' %}";
+          }
+      );
+    }
+  });
+
+  $('#link-button').on('click', function(e) {
+    handler.open();
+  });
+})(jQuery);
+</script>
+
+{% endblock %}

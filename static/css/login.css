@@ -1,0 +1,14 @@
+#login-box {
+    margin: 5px;
+    padding: 5px;
+    background: #66a2d4;
+    position: fixed;
+    left: 50%;
+    transform: translate(-50%);
+}
+
+#login-label {
+    text-align: center;
+    margin: 5px;
+    font-weight: bold;
+}
